@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TravoLens UI</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+
+  <!-- Sidebar and overlay -->
+  <div id="overlay" tabindex="-1"></div>
+
+  <aside id="sidebar" aria-label="Main menu navigation" aria-hidden="true">
+    <div>
+      <div class="logo" tabindex="0" aria-label="TravoLens Logo">
+        <svg fill="none" stroke="white" stroke-width="1.7" viewBox="0 0 48 48" width="32" height="32">
+          <rect x="5" y="10" width="15" height="28" fill="#E5433B" rx="3" ry="3"/>
+          <rect x="28" y="10" width="15" height="28" fill="#245DB7" rx="3" ry="3"/>
+          <path d="M9 13h8M9 26h8M31 13h8M31 26h8" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4"/>
+          <text x="20" y="26" font-size="13" fill="white" font-weight="700" font-family="Arial" text-anchor="middle">文</text>
+          <text x="37" y="26" font-size="18" fill="white" font-weight="700" font-family="Arial" text-anchor="middle">A</text>
+        </svg>
+        TravoLens
+      </div>
+      <nav>
+        <a href="#" class="active">Home</a>
+        <a href="#">Profile</a>
+        <a href="#">Weather</a>
+        <a href="#">About Us</a>
+        <a href="#">Feedback</a>
+        <a href="#">User Guide</a>
+      </nav>
+    </div>
+    <div class="sidebar-divider"></div>
+  </aside>
+
+  <!-- Header -->
+  <header>
+    <div class="flex items-center gap-2 font-bold text-white text-lg">
+      <span class="hidden md:inline">TravoLens</span>
+    </div>
+    <h1 class="title" aria-live="polite">Home</h1>
+    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/fbd07a37-7966-4901-9fcc-4032be0dac45.png" alt="User profile picture of Tony" class="profile-img" tabindex="0" />
+    <button id="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="sidebar">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <h2>Hi Tony!</h2>
+    <p class="subtitle">I Can Help You With?</p>
+    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/0b5f2a79-9bbe-4ae9-80dd-e1f5fb03782d.png" alt="Friends traveling" class="news-image" />
+
+    <section>
+      <div class="translator-options">
+        <button class="translator-card">Text Translate</button>
+        <button class="translator-card disabled" disabled>Voice Translate</button>
+        <button class="translator-card">Image Translate</button>
+      </div>
+    </section>
+
+    <section>
+      <p class="other-services-label">Other Services</p>
+      <div class="other-services">
+        <div class="service-icon black">🏨</div>
+        <div class="service-icon green">🍽️</div>
+        <div class="service-icon blue">☁️</div>
+        <div class="service-icon pink">🔲</div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bottom-nav">
+    <button class="active">Home</button>
+    <button>Profile</button>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
