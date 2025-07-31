@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TravoLens UI</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: #172F6C;
+      color: #111827;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    /* Scrollbar hide for all */
+    ::-webkit-scrollbar {
+      display: none;
+    }
+    body, button {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* Sidebar overlay */
+    #overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.25);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      z-index: 998;
+    }
+    #overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    #sidebar {
+      background-image: url('https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/d671770c-d3b4-4654-b356-94bdd2525b44.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      backdrop-filter: brightness(0.5);
+      color: white;
+      height: 100vh;
+      width: 260px;
+      max-width: 80vw;
+      position: fixed;
+      top: 0;
+      left: -280px;
+      padding: 2.5rem 1.5rem 3rem 1.5rem;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-radius: 0 15px 15px 0;
+      box-shadow: 3px 0 12px rgba(0,0,0,0.4);
+      transition: left 0.3s ease;
+      z-index: 999;
+    }
+    #sidebar.active {
+      left: 0;
+    }
+    #sidebar .logo {
+      font-weight: 700;
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: white;
+      margin-bottom: 2rem;
+      user-select: none;
+    }
+    #sidebar .logo svg {
+      width: 32px;
+      height: 32px;
+      flex-shrink: 0;
+    }
+
+    #sidebar nav a {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1.05rem;
+      padding: 10px 14px;
+      border-radius: 8px;
+      transition: background-color 0.2s ease;
+      user-select: none;
+    }
+    #sidebar nav a:hover, #sidebar nav a.active {
+      background-color: rgba(255 255 255 / 0.3);
+    }
+
+    #sidebar nav a svg {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      stroke: white;
+      stroke-width: 1.5;
+      fill: none;
+    }
+
+    /* Header */
+    header {
+      position: relative;
+      background-color: #204191;
+      color: white;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      box-sizing: border-box;
+      gap: 10px;
+      user-select: none;
+    }
+
+    #hamburger {
+      cursor: pointer;
+      width: 28px;
+      height: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    #hamburger span {
+      display: block;
+      height: 3.5px;
+      background: white;
+      border-radius: 2px;
+      transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+    }
+    #hamburger.open span:nth-child(1) {
+      transform: translateY(9.5px) rotate(45deg);
+    }
+    #hamburger.open span:nth-child(2) {
+      opacity: 0;
+    }
+    #hamburger.open span:nth-child(3) {
+      transform: translateY(-9.5px) rotate(-45deg);
+    }
+
+    header .title {
+      flex-grow: 1;
+      font-weight: 700;
+      font-size: 1.2rem;
+      text-align: center;
+      user-select: none;
+    }
+
+    header .profile-img {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: border-color 0.2s ease;
+      user-select: none;
+    }
+    header .profile-img:hover, header .profile-img:focus {
+      border-color: #fff;
+      outline: none;
+    }
+
+    main {
+      background: white;
+       margin: 1rem auto 3rem auto;
+      border-radius: 15px;
+      padding: 1rem 1rem 1.5rem 1rem;
+      max-width: 420px;
+      box-shadow: 0 4px 12px rgb(0 0 0 / 0.12);
+      font-family: 'Inter', sans-serif;
+      user-select: none;
+      padding-bottom: 150px;
+    }
+    main h2 {
+      margin-bottom: 4px;
+      font-weight: 700;
+      font-size: 1.3rem;
+      color: #111827;
+    }
+    main p.subtitle {
+      margin-bottom: 1rem;
+      color: #64748b;
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+
+    .news-image {
+      width: 100%;
+      height: 180px;
+      border-radius: 12px;
+      object-fit: cover;
+      margin-bottom: 1rem;
+      user-select: none;
+    }
+
+    /* Translator boxes */
+    .translator-options {
+      display: flex;
+      gap: 0.7rem;
+      margin-bottom: 1rem;
+    }
+    .translator-card {
+      flex: 1 1 0;
+      background: #f8fafc;
+      border-radius: 12px;
+      padding: 10px 12px;
+      box-shadow: 0 1px 4px rgb(0 0 0 / 0.1);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 0.8rem;
+      color: #374151;
+      font-weight: 600;
+      user-select: none;
+      transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+      border: 2px solid transparent;
+    }
+    .translator-card:hover,
+    .translator-card:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px #3B82F6;
+      background: #eff6ff;
+      color: #1e40af;
+      border-color: #3B82F6;
+    }
+    .translator-card.disabled {
+      background: #e9e9e9;
+      color: #a1a1aa;
+      cursor: default;
+      box-shadow: none;
+    }
+    .translator-card svg {
+      stroke: #3B82F6;
+      width: 28px;
+      height: 28px;
+      margin-bottom: 6px;
+      stroke-width: 2;
+      user-select: none;
+    }
+    .translator-card.disabled svg {
+      stroke: #a1a1aa;
+    }
+
+    /* Other services */
+    .other-services-label {
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.8rem;
+  font-size: 1rem;
+  /* text-align: center;  optional if you want center alignment */
+}
+
+.other-services {
+  display: flex;
+  gap: 28px; /* increase space between service icons */
+  flex-wrap: wrap;
+  justify-content: center; /* center icons horizontally */
+  user-select: none;
+}
+
+.service-icon-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  gap: 8px;
+  width: 72px;
+}
+
+.service-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #374151;
+  text-align: center;
+  user-select: none;
+}
+    .service-icon {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      box-shadow: 0 1px 6px rgb(0 0 0 / 0.08);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 32px;
+      cursor: pointer;
+      transition: filter 0.3s ease;
+      user-select: none;
+    }
+    .service-icon.black {
+      background: rgb(153, 247, 113);
+      color: white;
+    }
+    .service-icon.green {
+      background: #fffa5b;
+      color: black;
+    }
+    .service-icon.blue {
+      background: #bfdbfe;
+      color: #3b82f6;
+    }
+    .service-icon.pink {
+      background: #fca5a5;
+      color: black;
+    }
+    .service-icon:hover {
+      filter: brightness(115%);
+    }
+.carousel-wrapper {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 180px;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.4s ease-in-out;
+  height: 100%;
+}
+
+.carousel-track img {
+  width: 100%;
+  height: 180px;
+  flex-shrink: 0;
+  object-fit: cover;
+  user-select: none;
+  pointer-events: none;
+}
+
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.5);
+  color: white;
+  border: none;
+  font-size: 24px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.carousel-btn.prev { left: 8px; }
+.carousel-btn.next { right: 8px; }
+
+.carousel-dots {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+}
+
+.carousel-dots button {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.6);
+  border: none;
+  cursor: pointer;
+}
+.carousel-dots button.active {
+  background: white;
+}
+
+    /* Bottom navigation bar */
+    footer.bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      max-width: 420px;
+      width: 100%;
+      background: white;
+      border-radius: 18px 18px 0 0;
+      box-shadow: 0 -2px 10px rgb(0 0 0 / 0.1);
+      padding: 6px 0;
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      user-select: none;
+      z-index: 10;
+    }
+    .bottom-nav button {
+      all: unset;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 14px;
+      color: #374151;
+      padding: 6px 16px;
+      border-radius: 40px;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      user-select: none;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      border: 2.5px solid transparent;
+    }
+    .bottom-nav button.active {
+      background-color: #204191;
+      color: white;
+      box-shadow: 0 0 10px rgb(32 65 145 / 0.35);
+      border-color: #204191;
+    }
+    .bottom-nav button svg {
+      width: 20px;
+      height: 20px;
+      stroke-width: 2.5;
+      stroke: currentColor;
+      fill: none;
+    }
+
+
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar and overlay -->
+  <div id="overlay" tabindex="-1"></div>
+  <aside id="sidebar" aria-label="Main menu navigation" aria-hidden="true">
+    <div>
+      <div class="logo" tabindex="0" aria-label="TravoLens Logo">
+        <!-- Logo composed of two blocks letter L with icons, white stroke -->
+        <svg aria-hidden="true" fill="none" stroke="white" stroke-width="1.7" viewBox="0 0 48 48" width="32" height="32" role="img" >
+          <rect x="5" y="10" width="15" height="28" fill="#E5433B" stroke="white" stroke-width="1.7" rx="3" ry="3" />
+          <rect x="28" y="10" width="15" height="28" fill="#245DB7" stroke="white" stroke-width="1.7" rx="3" ry="3" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4" d="M9 13h8M9 26h8M31 13h8M31 26h8" stroke="white"/>
+          <text x="20" y="26" font-size="13" fill="white" font-weight="700" font-family="Arial" pointer-events="none" user-select="none" dominant-baseline="middle" text-anchor="middle">文</text>
+          <text x="37" y="26" font-size="18" fill="white" font-weight="700" font-family="Arial" pointer-events="none" user-select="none" dominant-baseline="middle" text-anchor="middle">A</text>
+        </svg>
+        TravoLens
+      </div>
+      <nav role="menu" aria-label="Sidebar menu">
+        <a href="#" role="menuitem" tabindex="0" class="active" aria-current="page">
+          <svg stroke="white" fill="none" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l7-7 7 7M10 19v-6h4v6" /></svg>
+          Home
+        </a>
+        <a href="#" role="menuitem" tabindex="0">
+          <svg stroke="white" fill="none" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path stroke-linecap="round" stroke-linejoin="round" d="M16 17v2H8v-2" /></svg>
+          Profile
+        </a>
+        <a href="#" role="menuitem" tabindex="0">
+          <svg stroke="white" fill="none" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16l8-10 8 10M5 21h14M12 3v11" /></svg>
+          Weather
+        </a>
+        <a href="#" role="menuitem" tabindex="0">
+          <svg stroke="white" fill="none" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11H9m10 0a7 7 0 1 0-7 7m7-7-3-3m0 6 3-3"/></svg>
+          About Us
+        </a>
+        <a href="#" role="menuitem" tabindex="0">
+          <svg stroke="white" fill="none" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16l4-4m0 0l4-4m-4 4v12"/></svg>
+          Feedback
+        </a>
+        <a href="#" role="menuitem" tabindex="0">
+          <svg stroke="white" fill="none" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" /><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h8M12 8v8" /></svg>
+          User Guide
+        </a>
+      </nav>
+    </div>
+    <div aria-hidden="true" style="border-top: 1px solid rgba(255 255 255 / 0.4); margin-top: 1rem;"></div>
+  </aside>
+
+  <!-- Main content -->
+  <header>
+    <button id="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="sidebar" tabindex="0">
+      <span></span><span></span><span></span>
+    </button>
+    <h1 class="title" aria-live="polite">Home</h1>
+    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/fbd07a37-7966-4901-9fcc-4032be0dac45.png" alt="User profile picture of Tony" class="profile-img" tabindex="0" />
+  </header>
+  
+  <main role="main" tabindex="0" aria-label="Main user dashboard content">
+    <h2>Hi Tony!</h2>
+    <p class="subtitle">I Can Help You With?</p>
+<div class="carousel-wrapper" tabindex="0" aria-label="Image carousel">
+  <div class="carousel-track">
+    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/0b5f2a79-9bbe-4ae9-80dd-e1f5fb03782d.png" alt="Friends smiling" />
+    <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1000&q=80" alt="Traveler hiking" />
+    <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1000&q=80" alt="Man facing mountains" />
+  </div>
+  <button class="carousel-btn prev" aria-label="Previous slide">‹</button>
+  <button class="carousel-btn next" aria-label="Next slide">›</button>
+  <div class="carousel-dots"></div>
+</div>
+
+
+
+
+    <section aria-label="Translator options" tabindex="0">
+      <div class="translator-options">
+        <button class="translator-card" aria-label="Text Translate" tabindex="0">
+          <svg stroke="#2563EB" fill="none" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21h-2a4 4 0 0 1-4-4v-8"/><path d="M4 4v2c0 .27.1.53.29.71l4.59 4.59"/></svg>
+          Text Translate
+        </button>
+        <button class="translator-card" aria-label="Voice Translate " tabindex="0">
+          <svg stroke="#2563EB" fill="none" viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="2" width="6" height="12" rx="3" ry="3"/><path d="M5 10v2a7 7 0 0 0 14 0v-2"/><line x1="12" y1="18" x2="12" y2="22"/></svg>
+          Voice Translate
+        </button>
+        <button class="translator-card" aria-label="Image Translate" tabindex="0">
+          <svg stroke="#2563EB" fill="none" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2" ry="2"/><path d="M8 11h.01M12 16h.01M16 8h.01"/></svg>
+          Image Translate
+        </button>
+      </div>
+    </section>
+
+   <section aria-label="Other services">
+  <p class="other-services-label">Other Services</p>
+  <div class="other-services">
+    <div class="service-icon-container" tabindex="0" aria-label="Hotel">
+      <div class="service-icon black">🏨</div>
+      <span class="service-label">Hotel</span>
+    </div>
+    <div class="service-icon-container" tabindex="0" aria-label="Overview">
+      <div class="service-icon green">📋</div>
+      <span class="service-label">Overview</span>
+    </div>
+    <div class="service-icon-container" tabindex="0" aria-label="Itinerary">
+      <div class="service-icon blue">🗺️</div>
+      <span class="service-label">Itinerary</span>
+    </div>
+    <div class="service-icon-container" tabindex="0" aria-label="Assistant">
+      <div class="service-icon pink">🤖</div>
+      <span class="service-label">Assistant</span>
+    </div>
+  </div>
+</section>
+
+
+  </main>
+
+  <footer class="bottom-nav" role="navigation" aria-label="Bottom navigation menu">
+    <button class="active" aria-current="page" aria-label="Navigate to Home page" tabindex="0">
+      <svg stroke="currentColor" fill="none" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l7-7 7 7M10 19v-6h4v6"/></svg>
+      Home
+    </button>
+    <button aria-label="Navigate to Profile page" tabindex="0">
+      <svg stroke="currentColor" fill="none" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7" r="4"/><path stroke-linecap="round" stroke-linejoin="round" d="M5 21v-2a8 8 0 0 1 14 0v2"/></svg>
+      Profile
+    </button>
+  </footer>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+    const pageTitle = document.querySelector('header .title');
+
+    function openSidebar() {
+      sidebar.classList.add('active');
+      hamburger.classList.add('open');
+      hamburger.setAttribute('aria-expanded', 'true');
+      sidebar.setAttribute('aria-hidden', 'false');
+      overlay.classList.add('active');
+      // Focus first link in sidebar for accessibility
+      const firstLink = sidebar.querySelector('nav a');
+      if (firstLink) firstLink.focus();
+      document.body.style.overflow = 'hidden'; // prevent body scroll on mobile
+    }
+    function closeSidebar() {
+      sidebar.classList.remove('active');
+      hamburger.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+      sidebar.setAttribute('aria-hidden', 'true');
+      overlay.classList.remove('active');
+      hamburger.focus();
+      document.body.style.overflow = ''; // restore body scroll
+    }
+
+    hamburger.addEventListener('click', () => {
+      if (sidebar.classList.contains('active')) closeSidebar();
+      else openSidebar();
+    });
+    // submenu open on hover (desktop only)
+    hamburger.addEventListener('mouseenter', () => {
+      if (window.innerWidth > 768 && !sidebar.classList.contains('active')) {
+        openSidebar();
+      }
+    });
+    sidebar.addEventListener('mouseleave', () => {
+      if (window.innerWidth > 768) {
+        closeSidebar();
+      }
+    });
+
+    // Close sidebar on overlay click or Esc key
+    overlay.addEventListener('click', closeSidebar);
+    document.addEventListener('keydown', (e) => {
+      if(e.key === "Escape" && sidebar.classList.contains('active')) {
+        closeSidebar();
+      }
+    });
+  const track = document.querySelector('.carousel-track');
+  const slides = Array.from(track.children);
+  const nextBtn = document.querySelector('.carousel-btn.next');
+  const prevBtn = document.querySelector('.carousel-btn.prev');
+  const dotsNav = document.querySelector('.carousel-dots');
+
+  let currentIndex = 0;
+
+  // Create dots
+  slides.forEach((_, index) => {
+    const dot = document.createElement('button');
+    dot.setAttribute('aria-label', `Slide ${index + 1}`);
+    if (index === 0) dot.classList.add('active');
+    dotsNav.appendChild(dot);
+  });
+
+  const dots = Array.from(dotsNav.children);
+
+  function updateCarousel(index) {
+    track.style.transform = `translateX(-${index * 100}%)`;
+    dots.forEach(dot => dot.classList.remove('active'));
+    dots[index].classList.add('active');
+    currentIndex = index;
+  }
+
+  nextBtn.addEventListener('click', () => {
+    const nextIndex = (currentIndex + 1) % slides.length;
+    updateCarousel(nextIndex);
+  });
+
+  prevBtn.addEventListener('click', () => {
+    const prevIndex = (currentIndex - 1 + slides.length) % slides.length;
+    updateCarousel(prevIndex);
+  });
+
+  dots.forEach((dot, index) => {
+    dot.addEventListener('click', () => updateCarousel(index));
+  });
+
+  // Swipe support
+  let startX = 0;
+  track.addEventListener('touchstart', (e) => {
+    startX = e.touches[0].clientX;
+  });
+
+  track.addEventListener('touchend', (e) => {
+    const endX = e.changedTouches[0].clientX;
+    const delta = endX - startX;
+    if (Math.abs(delta) > 50) {
+      if (delta < 0) {
+        nextBtn.click();
+      } else {
+        prevBtn.click();
+      }
+    }
+  });
+
+
+  </script>
+</body>
+</html>
+
