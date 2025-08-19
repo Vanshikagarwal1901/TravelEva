@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>TravoLens — AI Travel Companion</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <!-- Top Notification (optional) -->
+  <div class="topbar">
+    ✨ New: Voice translate & smart itinerary builder just launched.
+    <a href="#features">See what’s new →</a>
+  </div>
+
+  <!-- Header / Navbar -->
+  <header class="site-header">
+    <div class="container header-row">
+      <a class="brand" href="#">
+        <span class="brand-mark">TL</span>
+        <span class="brand-name">TravoLens</span>
+      </a>
+
+      <nav class="nav">
+        <a href="#features">Features</a>
+        <a href="#how">How it works</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+
+      <div class="header-ctas">
+        <button id="theme-toggle" class="icon-btn" aria-label="Toggle theme">🌙</button>
+        <a class="btn ghost" href="#demo">Live Demo</a>
+        <a class="btn primary" href="#get-started">Get Started</a>
+        <button class="hamburger" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <div class="mobile-drawer" id="mobile-drawer" aria-hidden="true">
+      <nav>
+        <a href="#features" class="mobile-link">Features</a>
+        <a href="#how" class="mobile-link">How it works</a>
+        <a href="#faq" class="mobile-link">FAQ</a>
+      </nav>
+      <div class="mobile-actions">
+        <a class="btn ghost w-full" href="#demo">Live Demo</a>
+        <a class="btn primary w-full" href="#get-started">Get Started</a>
+      </div>
+    </div>
+    <div class="drawer-backdrop" id="drawer-backdrop"></div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero section">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <h1 class="display">
+          Travel planning, <span class="accent-underline">simplified</span>.
+        </h1>
+        <p class="lead">
+          An AI-powered companion that translates, plans, and optimizes your trips—
+          Less chaos, more wonder.
+        </p>
+        <div class="cta-row">
+          <a class="btn primary lg" href="#get-started">Start free</a>
+          <a class="btn ghost lg" href="#demo">Watch demo</a>
+        </div>
+        
+        
+
+        <div class="trust-row">
+          <div class="kpi">
+            <span class="kpi-num"></span>
+            <span class="kpi-label"></span>
+          </div>
+          <div class="kpi">
+            <span class="kpi-num"></span>
+            <span class="kpi-label"></span>
+          </div>
+          <div class="kpi">
+            <span class="kpi-num"></span>
+            <span class="kpi-label"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product Mock -->
+      <div class="hero-visual">
+        <div class="browser">
+          <div class="browser-chrome">
+            <span></span><span></span><span></span>
+          </div>
+          <div class="browser-body">
+            <div class="mock-toolbar">
+              <div class="pill active">Overview</div>
+              <div class="pill">Translate</div>
+              <div class="pill">Itinerary</div>
+              <div class="pill">Weather</div>
+            </div>
+            <div class="mock-cards">
+              <div class="mock-card">
+                <div class="mock-icon">🔤</div>
+                <div>
+                  <div class="mock-title">Instant Translate</div>
+                  <div class="mock-sub">Text / Voice / Image</div>
+                </div>
+              </div>
+              <div class="mock-card">
+                <div class="mock-icon">🗺️</div>
+                <div>
+                  <div class="mock-title">Smart Itinerary</div>
+                  <div class="mock-sub">Auto-optimize routes</div>
+                </div>
+              </div>
+              <div class="mock-card">
+                <div class="mock-icon">⛅</div>
+                <div>
+                  <div class="mock-title">Live Weather</div>
+                  <div class="mock-sub">City-level insights</div>
+                </div>
+              </div>
+              <div class="mock-card">
+                <div class="mock-icon">🏨</div>
+                <div>
+                  <div class="mock-title">Hotel Finder</div>
+                  <div class="mock-sub">Deals, ratings, walkability</div>
+                </div>
+              </div>
+            </div>
+            <div class="mock-hero-img">
+              <img src="https://images.pexels.com/photos/1271619/pexels-photo-1271619.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Travel mock"/>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Logos
+  <section class="logos">
+    <div class="container logos-row">
+      <span class="logo-chip">Product Hunt</span>
+      <span class="logo-chip">Skyscanner Labs</span>
+      <span class="logo-chip">Nomad List</span>
+      <span class="logo-chip">Hacker News</span>
+      <span class="logo-chip">Indie Hackers</span>
+    </div>
+  </section> -->
+
+  <!-- Features -->
+  <section id="features" class="section">
+    <div class="container">
+      <div class="section-head">
+        <h2>Designed for clarity. Built for momentum.</h2>
+        <p class="muted"> Plan and track with zero clutter.</p>
+      </div>
+      <div class="feature-grid" >
+        <div class="feature-card reveal">
+          <div class="ficon" >📝</div>
+          <h3>Text & Voice Translate</h3>
+          <p>Fast, accurate, and context-aware translations that feel native.</p>
+          <a href="translator.html" class="btn">🌐 Try Translator</a>
+        </div>
+        <div class="feature-card reveal">
+          <div class="ficon">📷</div>
+          <h3>Image Translate</h3>
+          <p>Point your camera at menus, signs, or documents—get instant clarity.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="ficon">🗺️</div>
+          <h3>Smart Itineraries</h3>
+          <p>Auto-organized trips with optimal routes and time-saving suggestions.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="ficon">⛅</div>
+          <h3>Weather Aware</h3>
+          <p>Plan with confidence using live forecasts and local advisories.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="ficon">🏨</div>
+          <h3>Stay Finder</h3>
+          <p>Discover hotels by budget, rating, locality, and walkability.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="ficon">🔔</div>
+          <h3>Smart Alerts</h3>
+          <p>Flight updates, check-in reminders, and local disruptions—on time.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section id="how" class="section alt">
+    <div class="container">
+      <div class="section-head">
+        <h2>From idea to itinerary in minutes</h2>
+        <p class="muted">Three calm steps—no tabs, no chaos.</p>
+      </div>
+      <div class="steps">
+        <div class="step reveal">
+          <span class="step-num">1</span>
+          <h3>Describe your trip</h3>
+          <p>Tell TravoLens where you’re going, for how long, and your vibe.</p>
+        </div>
+        <div class="step reveal">
+          <span class="step-num">2</span>
+          <h3>Review the plan</h3>
+          <p>We generate a route, bookings, and quick-translate packs.</p>
+        </div>
+        <div class="step reveal">
+          <span class="step-num">3</span>
+          <h3>Travel, calmly</h3>
+          <p>Receive alerts, tweaks, and offline access while you explore.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="section alt">
+    <div class="container">
+      <div class="section-head">
+        <h2>Frequently asked questions</h2>
+        <p class="muted">Quick answers to help you get moving.</p>
+      </div>
+      <div class="faq">
+        <details class="faq-item reveal">
+          <summary>Is there an offline mode?</summary>
+          <p>Yes. Download trip packs for offline access to itineraries, maps, and quick phrases.</p>
+        </details>
+        <details class="faq-item reveal">
+          <summary>Which languages do you support?</summary>
+          <p>Over 120 languages with regional variants; voice models for 40+ major locales.</p>
+        </details>
+        <details class="faq-item reveal">
+          <summary>Can I share trips with friends?</summary>
+          <p>Absolutely—share read-only links or collaborate in real time on Pro & Team.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <a class="brand" href="#"><span class="brand-mark">TL</span><span class="brand-name">TravoLens</span></a>
+        <p class="muted small">Built with care • Built for explorers.</p>
+      </div>
+      <div class="footer-col">
+        <div class="foot-head">Product</div><br>
+        <a href="#features">Features</a><br><br>
+        <a href="#faq">FAQ</a>
+      </div>
+      <div class="footer-col">
+        <div class="foot-head">Company</div><br>
+        <a href="#">About</a><br><br>
+        <a href="#">Blog</a><br><br>
+        <a href="#">Careers</a>
+      </div>
+      <div class="footer-col">
+        <div class="foot-head">Legal</div><br>
+        <a href="#">Privacy</a><br><br>
+        <a href="#">Terms</a><br><br>
+        <a href="#">Security</a>
+      </div>
+    </div>
+    <div class="container foot-bottom">
+      <span class="muted small">© <span id="year"></span> TravoLens, Inc.</span>
+      <div class="socials">
+        <a aria-label="Twitter" href="#">𝕏</a>
+        <a aria-label="GitHub" href="#">GitHub</i></a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
