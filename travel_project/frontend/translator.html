@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Language Translator App</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="translate.css" />
+</head>
+<body>
+  <div class="app-container">
+    <h1 class="app-title">Language Translator</h1>
+
+    <div class="card">
+      <div class="controls">
+        <div class="dropdown-wrapper">
+          <label for="from-language">From</label>
+          <select id="from-language" class="dropdown">
+            <option value="en">English</option>
+            <option value="es">Spanish</option>
+            <option value="fr">French</option>
+            <option value="de">German</option>
+          </select>
+        </div>
+
+        <button id="swapBtn" class="swap-btn" title="Swap languages">⇄</button>
+
+        <div class="dropdown-wrapper">
+          <label for="to-language">To</label>
+          <select id="to-language" class="dropdown">
+            <option value="es">Spanish</option>
+            <option value="en">English</option>
+            <option value="fr">French</option>
+            <option value="de">German</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="translation-area">
+        <div class="box input-box">
+          <label for="input-text">📝 Input</label>
+          <textarea id="input-text" placeholder="Type text to translate..."></textarea>
+          <div class="input-actions">
+            <button id="micBtn" title="Speak input">🎤 Speak</button>
+          </div>
+        </div>
+
+        <div class="box output-box">
+          <label for="output-text">🗣️ Translation</label>
+          <div class="output">
+            <p id="output-text" class="output-text">Translation will appear here...</p>
+            <div class="output-actions">
+              <button id="copyBtn" title="Copy translation">📋 Copy</button>
+              <button id="speakBtn" title="Speak translation">🔊 Speak</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button id="translateBtn" class="translate-btn">Translate</button>
+    </div>
+  </div>
+
+  <script src="translator.js"></script>
+</body>
+</html>
