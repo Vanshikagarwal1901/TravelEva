@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>TravoLens — AI Language Translator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="translator.css"/>
+</head>
+<body>
+  <!-- Header / Navbar -->
+  <header class="site-header">
+    <div class="container header-row">
+      <a class="brand" href="index.html">
+        <span class="brand-mark">TL</span>
+        <span class="brand-name">TravoLens</span>
+      </a>
+
+      <nav class="nav">
+        <a href="#features">Features</a>
+        <a href="#how">How it works</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+
+      <div class="header-ctas">
+        <button id="theme-toggle" class="icon-btn" aria-label="Toggle theme">🌙</button>
+        <a class="btn ghost" href="#demo">Live Demo</a>
+        <a class="btn primary" href="#translator">Try Translator</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero section">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <h1 class="display">
+          Translate <span class="accent-underline">effortlessly</span>.
+        </h1>
+        <p class="lead">
+          An AI-powered language translator that converts text, speech, and conversations instantly. Break language barriers with ease.
+        </p>
+        <div class="cta-row">
+          <a class="btn primary lg" href="#translator">Try Translator</a>
+          <a class="btn ghost lg" href="#demo">Watch demo</a>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="browser">
+          <div class="browser-chrome">
+            <span></span><span></span><span></span>
+          </div>
+          <div class="browser-body">
+            <div class="mock-hero-img">
+              <img src="https://images.pexels.com/photos/374074/pexels-photo-374074.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Translator mock"/>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Translator Card -->
+  <section id="translator" class="section alt">
+    <div class="container">
+      <h2 class="section-head">AI Language Translator</h2>
+      <p class="lead muted">Type text or speak, then translate instantly to your preferred language.</p>
+      <div class="card">
+        <div class="controls">
+          <div class="dropdown-wrapper">
+            <label for="from-language">From</label>
+            <select id="from-language" class="dropdown">
+              <option value="en">English</option>
+              <option value="es">Spanish</option>
+              <option value="fr">French</option>
+              <option value="de">German</option>
+              <option value="hi">Hindi</option>
+            </select>
+          </div>
+
+          <button id="swapBtn" class="swap-btn" title="Swap languages">⇄</button>
+
+          <div class="dropdown-wrapper">
+            <label for="to-language">To</label>
+            <select id="to-language" class="dropdown">
+              <option value="es">Spanish</option>
+              <option value="en">English</option>
+              <option value="fr">French</option>
+              <option value="de">German</option>
+              <option value="hi">Hindi</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="translation-area">
+          <div class="box input-box">
+            <label for="input-text">📝 Input</label>
+            <textarea id="input-text" placeholder="Type text to translate..."></textarea>
+            <div class="input-actions">
+              <button id="micBtn" title="Speak input">🎤 Speak</button>
+            </div>
+          </div>
+
+          <div class="box output-box">
+            <label for="output-text">🗣️ Translation</label>
+            <div class="output">
+              <p id="output-text" class="output-text">Translation will appear here...</p>
+              <div class="output-actions">
+                <button id="copyBtn" title="Copy translation">📋 Copy</button>
+                <button id="speakBtn" title="Speak translation">🔊 Speak</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button id="translateBtn" class="translate-btn">Translate</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <a class="brand" href="#"><span class="brand-mark">TL</span><span class="brand-name">TravoLens</span></a>
+        <p class="muted small">Built with care • Built for explorers.</p>
+      </div>
+      <div class="footer-col">
+        <div class="foot-head">Product</div><br>
+        <a href="#features">Features</a><br><br>
+        <a href="#faq">FAQ</a>
+      </div>
+      <div class="footer-col">
+        <div class="foot-head">Company</div><br>
+        <a href="#">About</a><br><br>
+        <a href="#">Blog</a><br><br>
+        <a href="#">Careers</a>
+      </div>
+      <div class="footer-col">
+        <div class="foot-head">Legal</div><br>
+        <a href="#">Privacy</a><br><br>
+        <a href="#">Terms</a><br><br>
+        <a href="#">Security</a>
+      </div>
+    </div>
+    <div class="container foot-bottom">
+      <span class="muted small">© <span id="year"></span> TravoLens, Inc.</span>
+      <div class="socials">
+        <a aria-label="Twitter" href="#">𝕏</a>
+        <a aria-label="GitHub" href="#">GitHub</i></a>
+      </div>
+    </div>
+  </footer>
+  <script src="translator.js"></script>
+</body>
+</html>
